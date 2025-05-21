@@ -16,7 +16,7 @@ const AmountInput = () => {
     setResult(await currencyStore.getConvertedValue(receivedAmount));
   };
 
-  const handleConvertDebounce = useCallback(debounce(getConvertedValue, 500), []);
+  const handleConvertDebounce = useCallback(debounce(getConvertedValue, 200), []);
 
   const handleInput = (text: string) => {
     if (text) {
@@ -36,7 +36,12 @@ const AmountInput = () => {
   return (
     <View style={styles.container}>
       <Text size={16}>Amount:</Text>
-      <TextInput value={inputAmount} onChangeText={handleInput} placeholder="0" />
+      <TextInput
+        value={inputAmount}
+        onChangeText={handleInput}
+        placeholder="0"
+        keyboardType="numeric"
+      />
       <View style={styles.amountView}>
         <Text size={16}>
           {inputAmount || '0'} {currencyStore.fromCurrency?.symbol} =

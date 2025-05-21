@@ -1,13 +1,14 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { CurrencyType, ErrorType } from '../../types/MainTypes';
 import CurrencyRequests from '../../network/requests/CurrencyRequests';
+import currencies from '../../constData/currencies.json';
 
 class CurrencyStore {
   public currenciesList: CurrencyType[] = [];
 
-  public fromCurrency: CurrencyType | null = null;
+  public fromCurrency: CurrencyType = currencies[0];
 
-  public toCurrency: CurrencyType | null = null;
+  public toCurrency: CurrencyType = currencies[1];
 
   public loader: boolean = false;
 
@@ -55,12 +56,10 @@ class CurrencyStore {
       return 0;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      runInAction(() => {
-        this.errorResponse = {
-          errorCode: err.status,
-          errorMessage: err.message,
-          resetFunction: () => this.getConvertedValue('0'),
-        };
+      this.setErrorResponse({
+        errorCode: err.status,
+        errorMessage: err.message,
+        resetFunction: () => this.getConvertedValue('0'),
       });
       return 0;
     }

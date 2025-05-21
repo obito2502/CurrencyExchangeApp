@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
+import { useNavigation } from '@react-navigation/native';
 import useRootStore from '../../store/useRootStore';
 import CurrencyListItem from './CurrencyListItem';
 import Colors from '../../provider/Colors';
@@ -14,6 +15,7 @@ interface CurrenciesListProps {
 
 const CurrenciesList: FC<CurrenciesListProps> = observer(({ type, list }) => {
   const { currencyStore } = useRootStore();
+  const navigation = useNavigation();
 
   const onChoose = (item: CurrencyType) =>
     type === 'from' ? currencyStore.setFromCurrency(item) : currencyStore.setToCurrency(item);
@@ -29,7 +31,10 @@ const CurrenciesList: FC<CurrenciesListProps> = observer(({ type, list }) => {
         <CurrencyListItem
           item={item}
           chosen={item.code === currentCode}
-          onPress={() => onChoose(item)}
+          onPress={() => {
+            onChoose(item);
+            navigation.goBack();
+          }}
         />
       )}
       extraData={currentCode}
