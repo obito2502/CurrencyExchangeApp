@@ -104,6 +104,7 @@ A concise, developer-oriented overview of how the project is laid out and which 
 
 ## 📂 Top-Level Structure
 
+<pre>
 src/
 │
 ├─ assets/ # fonts, icons, images
@@ -117,6 +118,7 @@ src/
 ├─ store/ # MobX stores (CurrencyStore, …)
 ├─ types/ # global and navigation TS types
 └─ utils/ # helpers for adaptive layouts, etc.
+</pre>
 
 | Rule                         | Explanation                                                                                                                                                                                   |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
